@@ -1,4 +1,4 @@
-add_library("console_color" INTERFACE)
+add_library("console-color" INTERFACE)
 
-target_sources("console_color" INTERFACE "console_color.hpp")
-target_include_directories("console_color" INTERFACE "./")
+target_sources("console-color" INTERFACE "console-color.hpp")
+target_include_directories("console-color" INTERFACE "./")

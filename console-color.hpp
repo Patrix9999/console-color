@@ -1,11 +1,11 @@
-#ifndef COLOR_HPP
-#define COLOR_HPP
+#ifndef CONSOLE_COLOR_HPP
+#define CONSOLE_COLOR_HPP
 
-#if defined(__linux__) && !defined(COLOR_USE_ANSI)
-#define COLOR_USE_ANSI
+#if defined(__linux__) && !defined(CONSOLE_COLOR_USE_ANSI)
+#define CONSOLE_COLOR_USE_ANSI
 #endif
 
-#if defined(_WIN32) && !defined(COLOR_USE_ANSI)
+#if defined(_WIN32) && !defined(CONSOLE_COLOR_USE_ANSI)
 #include <windows.h>
 #endif
 
@@ -13,7 +13,7 @@
 
 namespace console
 {
-#ifndef COLOR_USE_ANSI
+#ifndef CONSOLE_COLOR_USE_ANSI
     enum shade
     {
         black,
@@ -69,7 +69,7 @@ namespace console
 
     color get()
     {
-#ifndef COLOR_USE_ANSI
+#ifndef CONSOLE_COLOR_USE_ANSI
         CONSOLE_SCREEN_BUFFER_INFO screenBufferInfo;
         if (!GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &screenBufferInfo))
             return color(shade::white, shade::black);
@@ -90,7 +90,7 @@ namespace console
 
     void set(shade text, shade background)
     {
-#ifndef COLOR_USE_ANSI
+#ifndef CONSOLE_COLOR_USE_ANSI
 
         SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), background * 16 + text);
 #else
@@ -103,7 +103,7 @@ namespace console
 
     void invert()
     {
-#ifndef COLOR_USE_ANSI
+#ifndef CONSOLE_COLOR_USE_ANSI
         color color = get();
         set(color.background, color.text);
 #else

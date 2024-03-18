@@ -2,7 +2,7 @@
 
 This is a simple, lightweight, header only library c++ library that allows to colorize the console text/background.
 
-If you want to use the ANSI under Windows 10, define this macro `COLOR_USE_ANSI`.  
+If you want to use the ANSI under Windows 10, define this macro `CONSOLE_COLOR_USE_ANSI`.  
 By default this macro is only defined for Linux.
 
 ## CMake support

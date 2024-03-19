@@ -68,7 +68,7 @@ namespace console
         shade background;
     };
 
-    color get()
+    inline color get()
     {
 #ifndef CONSOLE_COLOR_USE_ANSI
         CONSOLE_SCREEN_BUFFER_INFO screenBufferInfo;
@@ -84,12 +84,12 @@ namespace console
 #endif
     }
 
-    color default_color = get();
+    inline color default_color = get();
 
-    color::color(shade text) : text(text), background(default_color.background) {}
-    color::color(shade text, shade background) : text(text), background(background) {}
+    inline color::color(shade text) : text(text), background(default_color.background) {}
+    inline color::color(shade text, shade background) : text(text), background(background) {}
 
-    void set(shade text, shade background)
+    inline void set(shade text, shade background)
     {
 #ifndef CONSOLE_COLOR_USE_ANSI
 
@@ -102,7 +102,7 @@ namespace console
 #endif
     }
 
-    void invert()
+    inline void invert()
     {
 #ifndef CONSOLE_COLOR_USE_ANSI
         color color = get();
@@ -112,16 +112,16 @@ namespace console
 #endif
     }
 
-    void reset() { set(default_color.text, default_color.background); }
+    inline void reset() { set(default_color.text, default_color.background); }
 
-    std::ostream& invert(std::ostream& os) { invert(); return os; }
-    std::wostream& invert(std::wostream& os) { invert(); return os; }
+    inline std::ostream& invert(std::ostream& os) { invert(); return os; }
+    inline std::wostream& invert(std::wostream& os) { invert(); return os; }
 
-    std::ostream& reset(std::ostream& os) { reset(); return os; }
-    std::wostream& reset(std::wostream& os) { reset(); return os; }
+    inline std::ostream& reset(std::ostream& os) { reset(); return os; }
+    inline std::wostream& reset(std::wostream& os) { reset(); return os; }
 
-    std::ostream& operator<<(std::ostream& os, const color& color) { set(color.text, color.background); return os; }
-    std::wostream& operator<<(std::wostream& os, const color& color) { set(color.text, color.background); return os; }
+    inline std::ostream& operator<<(std::ostream& os, const color& color) { set(color.text, color.background); return os; }
+    inline std::wostream& operator<<(std::wostream& os, const color& color) { set(color.text, color.background); return os; }
 
     template<typename T>
     class color_scoped
@@ -132,11 +132,11 @@ namespace console
         shade background;
         bool inverted = false;
 
-        color_scoped(T t) : thing(std::move(t)), text(default_color.text), background(default_color.background) {}
-        color_scoped(T t, shade text) : thing(std::move(t)), text(text), background(default_color.background) {}
-        color_scoped(T t, shade text, shade background) : thing(std::move(t)), text(text), background(background) {}
+        inline color_scoped(T t) : thing(std::move(t)), text(default_color.text), background(default_color.background) {}
+        inline color_scoped(T t, shade text) : thing(std::move(t)), text(text), background(default_color.background) {}
+        inline color_scoped(T t, shade text, shade background) : thing(std::move(t)), text(text), background(background) {}
 
-        color_scoped<T>& invert()
+        inline color_scoped<T>& invert()
         {
             inverted = !inverted;
             return *this;
@@ -144,7 +144,7 @@ namespace console
     };
 
     template<typename T>
-    std::ostream & operator<<(std::ostream& os, const color_scoped<T> & it)
+    inline std::ostream & operator<<(std::ostream& os, const color_scoped<T> & it)
     {
         set(it.text, it.background);
 
@@ -158,7 +158,7 @@ namespace console
     }
 
     template<typename T>
-    std::wostream& operator<<(std::wostream& os, const color_scoped<T>& it)
+    inline std::wostream& operator<<(std::wostream& os, const color_scoped<T>& it)
     {
         set(it.text, it.background);
         os << it.thing;

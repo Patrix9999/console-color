@@ -1,6 +1,7 @@
 # Console Color
 
-This is a simple, lightweight, header only library c++ library that allows to colorize the console text/background.
+This is a simple, lightweight, header only library c++  library that allows to colorize the console text/background.  
+The library is using features from c++ 17 (inline variables), so if you want to use it, your project must also use cpp17 standard or newer.
 
 If you want to use the ANSI under Windows 10, define this macro `CONSOLE_COLOR_USE_ANSI`.  
 By default this macro is only defined for Linux.
